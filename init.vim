@@ -1,6 +1,7 @@
 source $HOME/.config/nvim/general/settings.vim
 source $HOME/.config/nvim/keys/mappings.vim
 source $HOME/.config/nvim/plug-config/coc.vim
+source $HOME/.config/nvim/plug-config/rnvimr.vim
 
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
@@ -12,6 +13,7 @@ call plug#begin()
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-airline/vim-airline'
 Plug 'ghifarit53/tokyonight-vim'
+Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
 call plug#end()
 
 set termguicolors
