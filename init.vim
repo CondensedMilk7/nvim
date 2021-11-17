@@ -11,16 +11,7 @@ endif
 call plug#begin()
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-airline/vim-airline'
-Plug 'preservim/nerdtree'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'joshdick/onedark.vim'
 Plug 'ghifarit53/tokyonight-vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'ghifarit53/tokyonight-vim'
-Plug 'neovim/node-host', { 'do': 'npm install -g neovim' }
-Plug 'billyvg/tigris.nvim', { 'do': './install.sh' }
-Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 call plug#end()
 
 set termguicolors
@@ -32,5 +23,3 @@ let g:tokyonight_enable_italic = 1
 colorscheme tokyonight 
 hi Normal ctermbg=none guibg=none
 hi EndOfBuffer guibg=NONE ctermbg=NONE
-" choose highlight method for vim-hexokinase
-let g:Hexokinase_highlighters = [ 'virtual' ]
