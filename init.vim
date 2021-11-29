@@ -11,18 +11,23 @@ endif
 
 call plug#begin()
 Plug 'sheerun/vim-polyglot' " multiple language support
-Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline' " Airline
 Plug 'ghifarit53/tokyonight-vim' " color scheme
 Plug 'kevinhwang91/rnvimr', {'do': 'make sync'} " ranger file manager in vim
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } " color highlighter
 Plug 'https://github.com/leafgarland/typescript-vim' " TS support
-Plug 'https://github.com/Quramy/vim-js-pretty-template'
-Plug 'https://github.com/pangloss/vim-javascript'
+Plug 'https://github.com/Quramy/vim-js-pretty-template' " JS syntax
+Plug 'https://github.com/pangloss/vim-javascript' " JS support
 Plug 'https://github.com/Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'https://github.com/Quramy/tsuquyomi'
-Plug 'https://github.com/Valloric/YouCompleteMe'
+Plug 'https://github.com/Valloric/YouCompleteMe' " Autocomplete
 Plug 'https://github.com/vim-syntastic/syntastic' " Syntax checking
 Plug 'https://github.com/bdauria/angular-cli.vim' " Angular CLI for vim
+Plug 'mattn/emmet-vim' " emmet abbreviations
+Plug 'godlygeek/tabular' " Dependency for vim-markdown
+Plug 'plasticboy/vim-markdown' " Markdown support
+Plug 'junegunn/goyo.vim' " Distraction free writing (for markdown)
+Plug 'reedes/vim-pencil' " Features for writers
 call plug#end()
 
 set termguicolors
@@ -69,4 +74,17 @@ let g:syntastic_typescript_checkers = ['tsuquyomi']
 
 " Activate angular CLI in nvim if directory contains @angular in node_modules
 autocmd VimEnter * if globpath('.,..','node_modules/@angular') != '' | call angular_cli#init() | endif
+
+" Disable folding in markdown by default
+let g:vim_markdown_folding_disabled = 1
+
+" Enable vim pencil on specific file types
+set nocompatible
+filetype plugin on       
+
+augroup pencil
+  autocmd!
+  autocmd FileType markdown,mkd call pencil#init()
+  autocmd FileType text         call pencil#init()
+augroup END
 
