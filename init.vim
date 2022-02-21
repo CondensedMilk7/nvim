@@ -11,8 +11,10 @@ endif
 
 call plug#begin()
 Plug 'sheerun/vim-polyglot' " multiple language support
-Plug 'vim-airline/vim-airline' " Airline
-Plug 'ghifarit53/tokyonight-vim' " color scheme
+Plug 'nvim-lualine/lualine.nvim' " statusline
+Plug 'kyazdani42/nvim-web-devicons' " icons for statusline
+" Plug 'vim-airline/vim-airline' " Airline
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' } " color scheme
 Plug 'kevinhwang91/rnvimr', {'do': 'make sync'} " ranger file manager in vim
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } " color highlighter
 Plug 'https://github.com/leafgarland/typescript-vim' " TS support
@@ -27,18 +29,20 @@ Plug 'mattn/emmet-vim' " emmet abbreviations
 Plug 'godlygeek/tabular' " Dependency for vim-markdown
 Plug 'plasticboy/vim-markdown' " Markdown support
 Plug 'junegunn/goyo.vim' " Distraction free writing (for markdown)
-Plug 'reedes/vim-pencil' " Features for writers
+"Plug 'reedes/vim-pencil' " Features for writers
 call plug#end()
 
 set termguicolors
 
 " configure current color scheme
 let g:tokyonight_style = 'night' " available: night, storm
-let g:tokyonight_enable_italic = 1
+
 " set color scheme
 colorscheme tokyonight 
-hi Normal ctermbg=none guibg=none
-hi EndOfBuffer guibg=NONE ctermbg=NONE
+
+" Background transparency
+"hi Normal ctermbg=none guibg=none
+"hi EndOfBuffer guibg=NONE ctermbg=NONE
 
 " Color highlight values
 let g:Hexokinase_highlighters = [ 'backgroundfull' ]
@@ -79,12 +83,48 @@ autocmd VimEnter * if globpath('.,..','node_modules/@angular') != '' | call angu
 let g:vim_markdown_folding_disabled = 1
 
 " Enable vim pencil on specific file types
-set nocompatible
-filetype plugin on       
+"set nocompatible
+"filetype plugin on       
+"
+"augroup pencil
+"  autocmd!
+"  autocmd FileType markdown,mkd call pencil#init()
+"  autocmd FileType text         call pencil#init()
+"augroup END
 
-augroup pencil
-  autocmd!
-  autocmd FileType markdown,mkd call pencil#init()
-  autocmd FileType text         call pencil#init()
-augroup END
+" Enable emmet just for html/css
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
 
+" Lualine Configuration
+
+lua << END
+require('lualine').setup {
+  options = {
+    icons_enabled = true,
+    theme = 'tokyonight',
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
+    disabled_filetypes = {},
+    always_divide_middle = true,
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {'filename'},
+    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {'filename'},
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {}
+  },
+  tabline = {},
+  extensions = {}
+}
+END
